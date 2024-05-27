@@ -35,7 +35,7 @@
 
 ## Screenshot
 
-![Screenshot](SC/1.jpg)
+<img src="SC/1.jpg" alt="Screenshot" width="600">
 
 ## Requirements
 
