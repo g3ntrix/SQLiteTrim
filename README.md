@@ -33,6 +33,10 @@
 1. **Backup your data** before using this tool. SQLiteTrim is in the early phase of development and may contain bugs.
 2. Ensure that the `x-ui.db` file is named exactly as `x-ui.db` and placed in the directory where you run the tool.
 
+## Screenshot
+
+![Screenshot](SC/1.jpg)
+
 ## Requirements
 
 - Python 3.x
