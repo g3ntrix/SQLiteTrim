@@ -1,6 +1,6 @@
 # SQLiteTrim
 
-**SQLiteTrim** is a simple Python tool to delete specific rows or ranges of rows from an SQLite database and renumber the remaining rows sequentially, ensuring data consistency and order. This tool is particularly useful for x-ui SQLite databases, maintaining correct IDs for seamless user creation.
+**SQLiteTrim** is a specialized Python tool designed to help manage x-ui SQLite databases by removing excessive rows without affecting the overall functionality. This ensures that user creation and management remain seamless by maintaining correct sequential IDs.
 
 ## Features
 
@@ -9,6 +9,10 @@
 - Range Deletion: Delete a range of rows by specifying start and end IDs.
 - Sequential Renumbering: Automatically renumbers remaining rows to maintain sequential order.
 - Safe Operations: Modifies a copy of the original database to ensure data safety.
+
+## Why SQLiteTrim?
+
+x-ui databases can accumulate excessive rows over time, which can lead to inefficiencies and potential issues in managing user data. SQLiteTrim was developed to address this by allowing administrators to remove unwanted rows while preserving the functionality and integrity of the database. By maintaining correct sequential IDs, the tool ensures that the database remains optimized for user creation and other operations.
 
 ## Usage
 
@@ -52,4 +56,4 @@ Contributions are welcome! Please fork the repository and submit pull requests f
 
 ## Acknowledgements
 
-Developed by [g3ntrix](https://github.com/g3ntrix).
+Developed by [g3ntrix](https://github.com/g3ntrix)
