@@ -35,7 +35,7 @@
 
 ## Screenshot
 
-<img src="SC/1.jpg" alt="Screenshot" width="600">
+<img src="SC/1.jpg" alt="Screenshot" width="300">
 
 ## Requirements
 
