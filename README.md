@@ -46,10 +46,11 @@ x-ui databases can accumulate excessive rows over time, which can lead to ineffi
 
 <table>
   <tr>
-    <td><img src="SC/2.jpg" alt="Menu" width="85%"></td>
-    <td><img src="SC/1.jpg" alt="Process" width="75%"></td>
+    <td style="text-align: center;"><img src="SC/2.jpg" alt="Menu" width="85%"></td>
+    <td style="text-align: center;"><img src="SC/1.jpg" alt="Process" width="75%"></td>
   </tr>
 </table>
+
 
 ## Requirements
 
