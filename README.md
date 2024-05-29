@@ -40,7 +40,13 @@ x-ui databases can accumulate excessive rows over time, which can lead to ineffi
 ## Important Notes
 
 1. **Backup your data** before using this tool. SQLiteTrim is in the early phase of development and may contain bugs.
-2. Ensure that the `x-ui.db` file is named exactly as `x-ui.db` and placed in the directory where you run the tool.
+2. **Merging Databases**:
+    - When merging two databases, ensure that there are no identical ports in both databases, or the xray database will fail to start unless you remove the duplicates manually.
+    - The settings from the first database will be preserved, and only the inbounds from the second database will be added to the first database.
+    - The IDs of the new database will be sorted automatically.
+3. **Environment Requirements**:
+    - For GUI operation, ensure Tkinter is installed and available on your system.
+    - For terminal operation, ensure your environment supports standard Python input/output operations.
 
 ## Screenshots
 
