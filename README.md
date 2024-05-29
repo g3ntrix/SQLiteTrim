@@ -1,18 +1,20 @@
 # SQLiteTrim
 
-**SQLiteTrim** is a specialized Python tool designed to help manage x-ui SQLite databases by removing excessive rows without affecting the overall functionality. This ensures that user creation and management remain seamless by maintaining correct sequential IDs.
+**SQLiteTrim** is a specialized Python tool designed to help manage x-ui SQLite databases by removing excessive rows without affecting the overall functionality. This ensures that user creation and management remain seamless by maintaining correct sequential IDs. Additionally, the tool now supports merging two SQLite databases and offers both GUI and terminal interfaces.
 
 ## Features
 
-- Interactive Menu: Provides a user-friendly interface to select deletion options.
-- Single Row Deletion: Delete a specific row by its ID.
-- Range Deletion: Delete a range of rows by specifying start and end IDs.
-- Sequential Renumbering: Automatically renumbers remaining rows to maintain sequential order.
-- Safe Operations: Modifies a copy of the original database to ensure data safety.
+- **Interactive Menu**: Provides a user-friendly interface to select deletion options.
+- **Single Row Deletion**: Delete a specific row by its ID.
+- **Range Deletion**: Delete a range of rows by specifying start and end IDs.
+- **Sequential Renumbering**: Automatically renumbers remaining rows to maintain sequential order.
+- **Database Merging**: Merge two SQLite databases while preserving settings from the first database.
+- **GUI and Terminal Interfaces**: Choose between a graphical user interface or a terminal-based interface.
+- **Safe Operations**: Modifies a copy of the original database to ensure data safety.
 
 ## Why SQLiteTrim?
 
-x-ui databases can accumulate excessive rows over time, which can lead to inefficiencies and potential issues in managing user data. SQLiteTrim was developed to address this by allowing administrators to remove unwanted rows while preserving the functionality and integrity of the database. By maintaining correct sequential IDs, the tool ensures that the database remains optimized for user creation and other operations.
+x-ui databases can accumulate excessive rows over time, which can lead to inefficiencies and potential issues in managing user data. SQLiteTrim was developed to address this by allowing administrators to remove unwanted rows while preserving the functionality and integrity of the database. By maintaining correct sequential IDs, the tool ensures that the database remains optimized for user creation and other operations. The merging functionality further enhances the tool by allowing easy integration of multiple databases.
 
 ## Usage
 
@@ -27,9 +29,12 @@ x-ui databases can accumulate excessive rows over time, which can lead to ineffi
     python sqlite_trim.py
     ```
 
-3. **Follow the Interactive Prompts**:
-    - Choose to delete a single row or a range of rows.
-    - Enter the ID(s) as prompted.
+3. **Choose Interface**:
+    - At startup, choose whether to use the GUI or terminal interface.
+
+4. **Follow the Interactive Prompts**:
+    - Choose to delete a single row, delete a range of rows, or merge two databases.
+    - Enter the ID(s) or file paths as prompted.
     - The modified database will be saved with a new name, preserving the original file.
 
 ## Important Notes
@@ -37,14 +42,20 @@ x-ui databases can accumulate excessive rows over time, which can lead to ineffi
 1. **Backup your data** before using this tool. SQLiteTrim is in the early phase of development and may contain bugs.
 2. Ensure that the `x-ui.db` file is named exactly as `x-ui.db` and placed in the directory where you run the tool.
 
-## Screenshot
+## Screenshots
 
-<img src="SC/1.jpg" alt="Screenshot" width="300">
+<table>
+  <tr>
+    <td><img src="SC/1.jpg" alt="Menu" width="100%"></td>
+    <td><img src="SC/2.jpg" alt="Process" width="100%"></td>
+  </tr>
+</table>
 
 ## Requirements
 
 - Python 3.x
 - SQLite3
+- Tkinter (for GUI)
 
 ## License
 
