@@ -1,5 +1,7 @@
 # SQLiteTrim
 
+[Click here for the Persian README (نسخه فارسی)](README_FA.md)
+
 **SQLiteTrim** is a specialized Python tool designed to help manage x-ui SQLite databases by removing excessive rows without affecting the overall functionality. This ensures that user creation and management remain seamless by maintaining correct sequential IDs. Additionally, the tool now supports merging two SQLite databases and offers both GUI and terminal interfaces.
 
 ## Features
