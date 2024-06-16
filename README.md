@@ -18,6 +18,7 @@
     - When merging two databases, ensure that there are no identical ports in both databases, or the xray database will fail to start unless you remove the duplicates manually.
     - The settings from the first database will be preserved, and only the inbounds from the second database will be added to the first database.
     - The IDs of the new database will be sorted automatically.
+    - **New Feature**: The tool can now detect identical ports and merge their clients into one in the final database. Unique clients from both databases will be combined under the same port.
 3. **Environment Requirements**:
     - For GUI operation, ensure Tkinter is installed and available on your system.
     - For terminal operation, ensure your environment supports standard Python input/output operations.

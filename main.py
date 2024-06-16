@@ -6,6 +6,7 @@ import colorama
 from colorama import Fore, Style
 import subprocess
 import sys
+import json
 
 colorama.init(autoreset=True)
 
@@ -17,6 +18,7 @@ print(f"""
 {Fore.GREEN}+---------------------------+
 """)
 print(f"{Fore.CYAN}visit: https://github.com/g3ntrix\n")
+
 
 def recreate_with_sequential_ids(db_path, start_id=1):
     conn = sqlite3.connect(db_path)
@@ -45,6 +47,38 @@ def recreate_with_sequential_ids(db_path, start_id=1):
     finally:
         conn.close()
 
+
+def merge_clients(clients1, clients2):
+    unique_clients = {client['email']: client for client in clients1}
+    for client in clients2:
+        unique_clients[client['email']] = client
+    return list(unique_clients.values())
+
+
+def merge_inbounds(rows1, rows2):
+    inbounds = {}
+    for row in rows1 + rows2:
+        id, user_id, up, down, total, remark, enable, expiry_time, listen, port, protocol, settings_json, stream_settings, tag, sniffing = row
+        settings = json.loads(settings_json)
+        clients = settings.get('clients', [])
+
+        if port in inbounds:
+            inbounds[port]['clients'].extend(clients)
+        else:
+            inbounds[port] = {'row': row, 'clients': clients}
+
+    merged_rows = []
+    for port, data in inbounds.items():
+        row, clients = data['row'], data['clients']
+        unique_clients = merge_clients(clients, [])
+        settings = json.loads(row[11])
+        settings['clients'] = unique_clients
+        row = list(row)
+        row[11] = json.dumps(settings)
+        merged_rows.append(tuple(row))
+    return merged_rows
+
+
 def merge_databases(db1_path, db2_path, output_path):
     shutil.copyfile(db1_path, output_path)
     conn1 = sqlite3.connect(output_path)
@@ -53,20 +87,24 @@ def merge_databases(db1_path, db2_path, output_path):
     cursor2 = conn2.cursor()
 
     try:
-        cursor1.execute("SELECT MAX(id) FROM inbounds")
-        max_id = cursor1.fetchone()[0] or 0
-        new_start_id = max_id + 1
-
-        cursor2.execute("PRAGMA table_info(inbounds)")
-        columns_info = cursor2.fetchall()
+        cursor1.execute("PRAGMA table_info(inbounds)")
+        columns_info = cursor1.fetchall()
         columns = [col[1] for col in columns_info]
         columns_str = ', '.join(columns)
         placeholders = ', '.join('?' * len(columns))
 
-        cursor2.execute("SELECT * FROM inbounds ORDER BY id")
-        rows = cursor2.fetchall()
+        cursor1.execute("SELECT * FROM inbounds ORDER BY id")
+        rows1 = cursor1.fetchall()
 
-        for new_id, row in enumerate(rows, start=new_start_id):
+        cursor2.execute("SELECT * FROM inbounds ORDER BY id")
+        rows2 = cursor2.fetchall()
+
+        merged_rows = merge_inbounds(rows1, rows2)
+
+        cursor1.execute("DELETE FROM inbounds")
+        conn1.commit()
+
+        for new_id, row in enumerate(merged_rows, start=1):
             new_row = (new_id,) + row[1:]
             cursor1.execute(f"INSERT INTO inbounds ({columns_str}) VALUES ({placeholders})", new_row)
 
@@ -77,6 +115,7 @@ def merge_databases(db1_path, db2_path, output_path):
     finally:
         conn1.close()
         conn2.close()
+
 
 def delete_and_recreate(original_db_path, new_db_path, delete_type, start_id, end_id=None):
     shutil.copyfile(original_db_path, new_db_path)
@@ -116,11 +155,13 @@ def delete_and_recreate(original_db_path, new_db_path, delete_type, start_id, en
     finally:
         conn.close()
 
+
 def select_file(gui, description):
     if gui:
         return filedialog.askopenfilename(title=description, filetypes=[("SQLite Database Files", "*.db"), ("All Files", "*.*")])
     else:
         return input(f"{Fore.YELLOW}{description}: ")
+
 
 def select_save_location(gui):
     if gui:
@@ -128,11 +169,13 @@ def select_save_location(gui):
     else:
         return input(f"{Fore.YELLOW}Enter the path to save the modified database: ")
 
+
 def get_input(prompt, gui):
     if gui:
         return simpledialog.askstring("Input", prompt)
     else:
         return input(f"{Fore.YELLOW}{prompt}: ")
+
 
 def main():
     print(f"{Fore.CYAN}Do you want to use the GUI or terminal interface?")
@@ -228,6 +271,7 @@ def main():
             break
         else:
             print(f"{Fore.RED}Invalid choice. Please enter 1, 2, 3, or 4.")
+
 
 if __name__ == "__main__":
     main()
