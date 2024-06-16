@@ -28,7 +28,7 @@ x-ui databases can accumulate excessive rows over time, which can lead to ineffi
 
 2. **Run the Script**:
     ```sh
-    python sqlite_trim.py
+    python main.py
     ```
 
 3. **Choose Interface**:
