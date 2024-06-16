@@ -274,4 +274,6 @@ def main():
             print(f"{Fore.RED}Invalid choice. Please enter 1, 2, 3, or 4.")
 
 if __name__ == "__main__":
+    if 'TERM' not in os.environ:
+        os.environ['TERM'] = 'xterm-256color'
     main()
