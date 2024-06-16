@@ -44,4 +44,4 @@ Contributions are welcome! Please fork the repository and submit pull requests f
 
 Developed by [g3ntrix](https://github.com/g3ntrix)
 
-[Read this in Persian (فارسی)](README.fa.md)
+[Read this in Persian (فارسی)](README_FA.md)

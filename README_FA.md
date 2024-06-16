@@ -46,4 +46,4 @@
 
 توسعه داده شده توسط [g3ntrix](https://github.com/g3ntrix)
 
-[Read this in English](README_FA.md)
+[Read this in English](README.md)
