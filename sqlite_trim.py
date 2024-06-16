@@ -1,3 +1,4 @@
+import os
 import sqlite3
 import shutil
 import tkinter as tk
@@ -10,15 +11,39 @@ import json
 
 colorama.init(autoreset=True)
 
-print(f"""
+BANNER = f"""
 {Fore.GREEN}+---------------------------+
 {Fore.GREEN}|{Fore.YELLOW}╔═╗╔═╗ ╦  ┬┌┬┐┌─┐╔╦╗┬─┐┬┌┬┐{Fore.GREEN}|
 {Fore.GREEN}|{Fore.YELLOW}╚═╗║═╬╗║  │ │ ├┤  ║ ├┬┘││││{Fore.GREEN}|
 {Fore.GREEN}|{Fore.YELLOW}╚═╝╚═╝╚╩═╝┴ ┴ └─┘ ╩ ┴└─┴┴ ┴{Fore.GREEN}|
 {Fore.GREEN}+---------------------------+
-""")
-print(f"{Fore.CYAN}visit: https://github.com/g3ntrix\n")
+{Fore.CYAN}visit: https://github.com/g3ntrix
+"""
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def print_banner():
+    clear_screen()
+    print(BANNER)
+
+def select_file(gui, description):
+    if gui:
+        return filedialog.askopenfilename(title=description, filetypes=[("SQLite Database Files", "*.db"), ("All Files", "*.*")])
+    else:
+        return input(f"{Fore.YELLOW}{description}: ")
+
+def select_save_location(gui):
+    if gui:
+        return filedialog.asksaveasfilename(title="Select save location", defaultextension=".db", filetypes=[("SQLite Database Files", "*.db"), ("All Files", "*.*")])
+    else:
+        return input(f"{Fore.YELLOW}Enter the path to save the modified database: ")
+
+def get_input(prompt, gui):
+    if gui:
+        return simpledialog.askstring("Input", prompt)
+    else:
+        return input(f"{Fore.YELLOW}{prompt}: ")
 
 def recreate_with_sequential_ids(db_path, start_id=1):
     conn = sqlite3.connect(db_path)
@@ -47,13 +72,11 @@ def recreate_with_sequential_ids(db_path, start_id=1):
     finally:
         conn.close()
 
-
 def merge_clients(clients1, clients2):
     unique_clients = {client['email']: client for client in clients1}
     for client in clients2:
         unique_clients[client['email']] = client
     return list(unique_clients.values())
-
 
 def merge_inbounds(rows1, rows2):
     inbounds = {}
@@ -77,7 +100,6 @@ def merge_inbounds(rows1, rows2):
         row[11] = json.dumps(settings)
         merged_rows.append(tuple(row))
     return merged_rows
-
 
 def merge_databases(db1_path, db2_path, output_path):
     shutil.copyfile(db1_path, output_path)
@@ -115,7 +137,6 @@ def merge_databases(db1_path, db2_path, output_path):
     finally:
         conn1.close()
         conn2.close()
-
 
 def delete_and_recreate(original_db_path, new_db_path, delete_type, start_id, end_id=None):
     shutil.copyfile(original_db_path, new_db_path)
@@ -155,29 +176,8 @@ def delete_and_recreate(original_db_path, new_db_path, delete_type, start_id, en
     finally:
         conn.close()
 
-
-def select_file(gui, description):
-    if gui:
-        return filedialog.askopenfilename(title=description, filetypes=[("SQLite Database Files", "*.db"), ("All Files", "*.*")])
-    else:
-        return input(f"{Fore.YELLOW}{description}: ")
-
-
-def select_save_location(gui):
-    if gui:
-        return filedialog.asksaveasfilename(title="Select save location", defaultextension=".db", filetypes=[("SQLite Database Files", "*.db"), ("All Files", "*.*")])
-    else:
-        return input(f"{Fore.YELLOW}Enter the path to save the modified database: ")
-
-
-def get_input(prompt, gui):
-    if gui:
-        return simpledialog.askstring("Input", prompt)
-    else:
-        return input(f"{Fore.YELLOW}{prompt}: ")
-
-
 def main():
+    print_banner()
     print(f"{Fore.CYAN}Do you want to use the GUI or terminal interface?")
     print(f"{Fore.CYAN}1. Terminal")
     print(f"{Fore.CYAN}2. GUI")
@@ -198,6 +198,7 @@ def main():
         root.attributes('-topmost', True)
 
     while True:
+        print_banner()
         print(f"{Fore.CYAN}\nMenu:")
         print(f"{Fore.CYAN}1. Delete a single row")
         print(f"{Fore.CYAN}2. Delete a range of rows")
@@ -271,7 +272,6 @@ def main():
             break
         else:
             print(f"{Fore.RED}Invalid choice. Please enter 1, 2, 3, or 4.")
-
 
 if __name__ == "__main__":
     main()
