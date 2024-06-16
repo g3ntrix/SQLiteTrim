@@ -1,6 +1,6 @@
 ## Usage
 
-**Run the Installation and Script**:
+1. **Run the Installation and Script**:
     ```sh
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/g3ntrix/SQLiteTrim/main/install_and_run.sh)"
     ```
