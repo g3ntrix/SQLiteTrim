@@ -4,6 +4,8 @@ import tkinter as tk
 from tkinter import filedialog, simpledialog
 import colorama
 from colorama import Fore, Style
+import subprocess
+import sys
 
 colorama.init(autoreset=True)
 
@@ -134,13 +136,20 @@ def get_input(prompt, gui):
 
 def main():
     print(f"{Fore.CYAN}Do you want to use the GUI or terminal interface?")
-    print(f"{Fore.CYAN}1. GUI")
-    print(f"{Fore.CYAN}2. Terminal")
+    print(f"{Fore.CYAN}1. Terminal")
+    print(f"{Fore.CYAN}2. GUI")
     choice = input(f"{Fore.YELLOW}Enter your choice (1 or 2): ")
 
-    gui = choice == '1'
+    gui = choice == '2'
 
     if gui:
+        try:
+            import tkinter as tk
+            from tkinter import filedialog, simpledialog
+        except ImportError:
+            print(f"{Fore.RED}Tkinter is not installed. Please install it to use the GUI.")
+            print(f"{Fore.CYAN}You can install it by running: sudo apt install python3-tk")
+            sys.exit(1)
         root = tk.Tk()
         root.withdraw()
         root.attributes('-topmost', True)
