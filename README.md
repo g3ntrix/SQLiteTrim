@@ -1,12 +1,6 @@
 ## Usage
 
-1. **Clone the Repository**:
-    ```sh
-    git clone https://github.com/g3ntrix/SQLiteTrim.git
-    cd SQLiteTrim
-    ```
-
-2. **Run the Installation and Script**:
+**Run the Installation and Script**:
     ```sh
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/g3ntrix/SQLiteTrim/main/install_and_run.sh)"
     ```
@@ -49,3 +43,5 @@ Contributions are welcome! Please fork the repository and submit pull requests f
 ## Acknowledgements
 
 Developed by [g3ntrix](https://github.com/g3ntrix)
+
+[Read this in Persian (فارسی)](README.fa.md)
