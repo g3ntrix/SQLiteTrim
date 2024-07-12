@@ -1,5 +1,3 @@
----
-
 ## Usage
 
 1. **Run the Installation and Script**:
